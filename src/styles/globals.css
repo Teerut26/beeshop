@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  font-family: "Noto Sans Thai", sans-serif !important;
+}
+
+.btn {
+  @apply w-fit rounded border px-3 py-1;
+}
