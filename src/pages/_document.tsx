@@ -5,7 +5,7 @@ interface Props {}
 
 const _document: NextPage<Props> = () => {
   return (
-    <Html>
+    <Html data-theme="light">
       <Head>
         <link rel="icon" href="/favicon.ico" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />

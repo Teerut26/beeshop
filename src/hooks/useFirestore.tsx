@@ -1,51 +1,11 @@
 import { app, db } from "@/configs/firebase";
-import {
-  addDoc,
-  collection,
-  deleteDoc,
-  doc,
-  getDoc,
-  getDocs,
-  onSnapshot,
-  setDoc,
-  updateDoc,
-} from "firebase/firestore";
-import {
-  getAuth,
-  signInWithPopup,
-  GoogleAuthProvider,
-  User,
-  signOut,
-} from "firebase/auth";
+import { getAuth, signInWithPopup, GoogleAuthProvider, User, signOut } from "firebase/auth";
+import { doc, getDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 
 export default function useFirestore() {
-  const [biders, setBiders] = useState<UserInterface[]>();
   const [user, setUser] = useState<User | null>();
-
-  useEffect(() => {
-    const unsub = onSnapshot(collection(db, "bider"), (doc) => {
-      const biders: UserInterface[] = [];
-      doc.forEach((d) => {
-        biders.push({ ...d.data(), id: d.id } as UserInterface);
-      });
-      setBiders(biders);
-    });
-    return () => {
-      unsub();
-    };
-  }, []);
-
-  useEffect(() => {
-    (async () => {
-      const data = await getDocs(collection(db, "bider"));
-      let biders: UserInterface[] = [];
-      data.forEach((d) => {
-        biders.push({ ...d.data(), id: d.id } as UserInterface);
-      });
-      setBiders(biders);
-    })();
-  }, []);
+  const [HasStore, setHasStore] = useState<boolean | undefined>(undefined);
 
   useEffect(() => {
     const auth = getAuth(app);
@@ -54,47 +14,20 @@ export default function useFirestore() {
     });
   }, []);
 
-  const addKonBid = async (name: string) => {
-    if (name.length === 0) return;
-    await addDoc(collection(db, "bider"), {
-      name: name,
-      bid: 0,
-      vote: 0,
-      userVote: [],
-    });
-  };
-
-  const vote = async (id: string) => {
-    const checkCanVote = await getDoc(doc(db, "bider", id));
-
-    if (checkCanVote.data()) {
-      const userVote = checkCanVote.data()?.userVote;
-      if (userVote.includes(user?.uid)) {
-        alert("คุณได้โหวตแล้ว");
-        return;
+  useEffect(() => {
+    if (!user) return;
+    (async () => {
+      const storeSnap = await getDoc(doc(db, "store", user?.uid!));
+      console.log(storeSnap.exists());
+      
+      console.log(storeSnap.exists());
+      if (storeSnap.exists()) {
+        setHasStore(true);
       } else {
-        if (userVote.length + 1 >= 3) {
-          await updateDoc(doc(db, "bider", id), {
-            bid: biders?.find((b) => b.id === id)?.bid! + 1,
-          });
-          await updateDoc(doc(db, "bider", id), {
-            userVote: [],
-            vote: 0,
-          });
-        } else {
-          await updateDoc(doc(db, "bider", id), {
-            userVote: [...userVote, user?.uid],
-          });
-          await updateDoc(doc(db, "bider", id), {
-            vote: biders?.find((b) => b.id === id)?.vote! + 1,
-          });
-        }
+        setHasStore(false);
       }
-    } else {
-      alert("ไม่พบข้อมูล");
-      return;
-    }
-  };
+    })();
+  }, [user]);
 
   const signInWithGoogle = async () => {
     const auth = getAuth(app);
@@ -117,5 +50,5 @@ export default function useFirestore() {
     signOut(auth);
   };
 
-  return { addKonBid, biders, vote, signInWithGoogle, user, signOutAction };
+  return { signInWithGoogle, user, signOutAction, HasStore };
 }

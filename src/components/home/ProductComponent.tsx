@@ -33,7 +33,7 @@ const ProductComponent: NextPage<Props> = () => {
           </div>
         </div>
         <div className="mt-3">
-          <button className="btn bg-blue-500 text-white hover:bg-blue-600">
+          <button className="btn btn-sm bg-blue-500 text-white hover:bg-blue-600">
             เพิ่มลงตะกร้า
           </button>
         </div>

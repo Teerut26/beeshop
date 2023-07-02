@@ -14,7 +14,7 @@ export default function Home() {
           className="w-full rounded px-2 py-1 focus:outline-none"
           placeholder="ค้นหาร้าน / เมนู"
         />
-        <button className="btn btn bg-blue-500 text-white hover:bg-blue-600">
+        <button className="btn btn-sm bg-blue-500 text-white hover:bg-blue-600">
           <Icon icon="ic:baseline-shopping-cart" className="text-xl" />
         </button>
       </div>
