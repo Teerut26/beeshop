@@ -1,9 +1,9 @@
-import { FoodInterface } from "./FoodInterface";
+import { ProductInterface } from "./ProductInterface";
 
 export interface StoreInterface {
   id?: string;
   name: string;
   description?: string;
-  foods: FoodInterface[];
+  foods: ProductInterface[];
   available: boolean;
 }

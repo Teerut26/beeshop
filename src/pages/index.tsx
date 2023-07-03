@@ -8,11 +8,11 @@ export default function Home() {
 
   return (
     <NavbarLayouts>
-      <div className="sticky top-0 flex gap-3 border-t bg-yellow-500 px-5 py-2 ">
+      <div className="sticky top-0 flex gap-3 border-t bg-yellow-500 px-5 py-2 z-10">
         <input
           type="text"
           className="w-full rounded px-2 py-1 focus:outline-none"
-          placeholder="ค้นหาร้าน / เมนู"
+          placeholder="ค้นหาร้าน / สินค้า"
         />
         <button className="btn btn-sm bg-blue-500 text-white hover:bg-blue-600">
           <Icon icon="ic:baseline-shopping-cart" className="text-xl" />

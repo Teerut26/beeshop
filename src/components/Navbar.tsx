@@ -47,7 +47,7 @@ const Navbar: NextPage<Props> = () => {
                 ) : (
                   <button
                     onClick={() => router.push("/sign-in")}
-                    className="btn flex items-center gap-2"
+                    className="btn-ghost btn-sm btn flex items-center gap-2"
                   >
                     SignIn
                     <Icon icon="ic:baseline-log-in" className="text-xl" />
@@ -74,12 +74,15 @@ const Navbar: NextPage<Props> = () => {
                             สร้างร้าน
                           </DropdownItemLink>
                         )}
+                        {HasStore && (
+                          <DropdownItemLink href="/store-management">
+                            <Icon icon="ic:baseline-fastfood" className="mr-2" />
+                            เพิ่มสินค้า
+                          </DropdownItemLink>
+                        )}
                       </>
                     )}
-                    <DropdownItemLink href="/my-account">
-                      <Icon icon="ic:baseline-fastfood" className="mr-2" />
-                      เพิ่มสินค้า
-                    </DropdownItemLink>
+
                     <DropdownItem className="text-red-500" onClick={signOutAction}>
                       <Icon icon="ic:baseline-logout" className="mr-2" />
                       ออกจากระบบ

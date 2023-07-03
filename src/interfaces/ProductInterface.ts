@@ -1,4 +1,4 @@
-export interface FoodInterface {
+export interface ProductInterface {
   id?: string;
   name: string;
   description?: string;
