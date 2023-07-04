@@ -4,6 +4,6 @@ export interface StoreInterface {
   id?: string;
   name: string;
   description?: string;
-  foods: ProductInterface[];
+  products: ProductInterface[];
   available: boolean;
 }

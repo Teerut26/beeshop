@@ -77,7 +77,7 @@ const Navbar: NextPage<Props> = () => {
                         {HasStore && (
                           <DropdownItemLink href="/store-management">
                             <Icon icon="ic:baseline-fastfood" className="mr-2" />
-                            เพิ่มสินค้า
+                            จัดการสินค้า
                           </DropdownItemLink>
                         )}
                       </>
